@@ -1,18 +1,6 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Injectable, InjectionToken, PLATFORM_ID, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, scan, startWith, tap } from 'rxjs';
-
-export const LOCAL_STORAGE = new InjectionToken<Storage>(
-  'window local storage object',
-  {
-    providedIn: 'root',
-    factory: () => {
-      return isPlatformBrowser(inject(PLATFORM_ID))
-        ? window.localStorage
-        : ({} as Storage);
-    },
-  },
-);
+import { LOCAL_STORAGE } from '../utils/storage.util';
 
 @Injectable({
   providedIn: 'root',
