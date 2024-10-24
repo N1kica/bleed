@@ -12,7 +12,7 @@ import { SearchResultsComponent } from './ui/search-results.component';
 
     <app-search-box (toggle)="tvs.search$.next($event)" />
 
-    @switch (tvs.state()) {
+    @switch (tvs.status()) {
       @case ('loading') {
         loading...
       }

@@ -1,16 +1,17 @@
 import { NgStyle } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { TVShow } from '../interfaces/tv-show.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-search-results',
   standalone: true,
-  imports: [NgStyle],
+  imports: [NgStyle, RouterLink],
   template: `
     <ul>
       @for (show of shows(); track show.id) {
         <li [ngStyle]="{ 'background-color': show.favorite ? 'red' : '' }">
-          {{ show.name }}
+          <a routerLink="/show/{{ show.id }}">{{ show.name }}</a>
           <button (click)="toggle.emit(show.id)">
             {{ show.favorite ? 'REMOVE' : 'ADD' }}
           </button>

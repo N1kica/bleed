@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, computed, inject } from '@angular/core';
 import { Subject, catchError, map, of, startWith, switchMap, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { State, TVShow, TVShowResultState } from '../interfaces/tv-show.model';
+import { Status, TVShow, TVShowResultState } from '../interfaces/tv-show.model';
 import { FavoritesService } from '../../shared/services/favorites.service';
 
 @Injectable({
@@ -25,7 +25,8 @@ export class TVShowService {
       favorite: this.favs.favorites()?.includes(show.id),
     })),
   );
-  state: Signal<State> = computed(() => {
+
+  status: Signal<Status> = computed(() => {
     switch (this.searchResultState()?.total) {
       case undefined:
         return 'loading';
@@ -57,7 +58,5 @@ export class TVShowService {
   );
 
   // actions:
-  toggleFavorite(id: string) {
-    this.favs.state$.next(id);
-  }
+  public toggleFavorite = (id: string) => this.favs.state$.next(id);
 }

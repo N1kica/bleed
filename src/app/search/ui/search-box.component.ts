@@ -15,7 +15,7 @@ import {
       [formGroup]="form"
       (ngSubmit)="form.valid && toggle.emit(input.value)"
     >
-      <input #input formControlName="name" type="text" />
+      <input #input formControlName="search" type="text" />
       <button type="submit" [disabled]="form.invalid">SEARCH</button>
     </form>
   `,
@@ -25,6 +25,6 @@ export class SearchBoxComponent {
   toggle = output<string>();
 
   form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    search: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
 }

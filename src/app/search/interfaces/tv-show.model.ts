@@ -11,4 +11,4 @@ export interface TVShow {
   favorite?: boolean;
 }
 
-export type State = 'loading' | 'success' | 'error' | 'no_results';
+export type Status = 'loading' | 'success' | 'error' | 'no_results';

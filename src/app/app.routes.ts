@@ -12,6 +12,10 @@ export const routes: Routes = [
       import('./search/search.component').then((m) => m.SearchComponent),
   },
   {
+    path: 'show',
+    loadChildren: () => import('./show/show.routes').then((r) => r.showRoutes),
+  },
+  {
     path: 'not-found',
     loadComponent: () =>
       import('./not-found/not-found.component').then(
