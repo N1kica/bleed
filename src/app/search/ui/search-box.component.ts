@@ -1,15 +1,30 @@
 import { Component, output } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-search-box',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   template: `
-    <input #input (keydown.enter)="toggle.emit(input.value)" type="text" />
-    <button (click)="toggle.emit(input.value)">SEARCH</button>
+    <form
+      [formGroup]="form"
+      (ngSubmit)="form.valid && toggle.emit(input.value)"
+    >
+      <input #input formControlName="name" type="text" />
+      <button type="submit" [disabled]="form.invalid">SEARCH</button>
+    </form>
   `,
   styles: ``,
 })
 export class SearchBoxComponent {
   toggle = output<string>();
+
+  form = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  });
 }
