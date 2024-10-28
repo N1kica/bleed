@@ -1,7 +1,7 @@
 import { NgStyle } from '@angular/common';
 import { Component, input, output } from '@angular/core';
-import { TVShow } from '../interfaces/tv-show.model';
 import { RouterLink } from '@angular/router';
+import { TVShow } from '../../shared/interfaces/tv-show.model';
 
 @Component({
   selector: 'app-search-results',

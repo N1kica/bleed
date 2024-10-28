@@ -2,13 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, computed, inject } from '@angular/core';
 import { Subject, catchError, map, of, startWith, switchMap, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Status, TVShow, TVShowResultState } from '../interfaces/tv-show.model';
-import { FavoritesService } from '../../shared/services/favorites.service';
+import {
+  Status,
+  TVShow,
+  SearchState,
+} from '../shared/interfaces/tv-show.model';
+import { FavoritesService } from '../shared/services/favorites.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class TVShowService {
+@Injectable()
+export class SearchService {
   private http = inject(HttpClient);
   private favs = inject(FavoritesService);
 
@@ -20,14 +22,14 @@ export class TVShowService {
 
   // selectors:
   shows: Signal<TVShow[] | undefined> = computed(() =>
-    this.searchResultState()?.tv_shows?.map((show) => ({
+    this.searchState()?.tv_shows?.map((show) => ({
       ...show,
       favorite: this.favs.favorites()?.includes(show.id),
     })),
   );
 
   status: Signal<Status> = computed(() => {
-    switch (this.searchResultState()?.total) {
+    switch (this.searchState()?.total) {
       case undefined:
         return 'loading';
       case '-1':
@@ -44,14 +46,14 @@ export class TVShowService {
     map((val) => `https://www.episodate.com/api/search?q=${val}&page=1`),
   );
 
-  private searchResultState: Signal<TVShowResultState | undefined> = toSignal(
+  private searchState: Signal<SearchState | undefined> = toSignal(
     this.url$.pipe(
       startWith('https://www.episodate.com/api/search?page=1'),
       switchMap((url) =>
-        this.http.get<TVShowResultState>(url).pipe(
-          startWith({} as TVShowResultState),
+        this.http.get<SearchState>(url).pipe(
+          startWith({} as SearchState),
           tap((val) => console.log(val)),
-          catchError(() => of({ total: '-1' } as TVShowResultState)),
+          catchError(() => of({ total: '-1' } as SearchState)),
         ),
       ),
     ),

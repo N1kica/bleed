@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { TVShowService } from './services/tv-show.service';
+import { SearchService } from './search.service';
 import { SearchBoxComponent } from './ui/search-box.component';
 import { SearchResultsComponent } from './ui/search-results.component';
 
@@ -7,6 +7,7 @@ import { SearchResultsComponent } from './ui/search-results.component';
   selector: 'app-search',
   standalone: true,
   imports: [SearchBoxComponent, SearchResultsComponent],
+  providers: [SearchService],
   template: `
     <h1>Welcome to Search Page!</h1>
 
@@ -36,5 +37,5 @@ import { SearchResultsComponent } from './ui/search-results.component';
   styles: ``,
 })
 export class SearchComponent {
-  public tvs = inject(TVShowService);
+  public tvs = inject(SearchService);
 }
