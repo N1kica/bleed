@@ -1,24 +1,28 @@
 import { Component, inject } from '@angular/core';
 import { ShowService } from './show.service';
-import { NgStyle } from '@angular/common';
+import { ShowSummaryComponent } from './ui/show-summary.component';
 
 @Component({
   selector: 'app-show',
-  standalone: true,
-  imports: [NgStyle],
+  imports: [ShowSummaryComponent],
   providers: [ShowService],
   template: `
     <h1>Welcome to TV Show Page!</h1>
-    <ul>
-      <li [ngStyle]="{ 'background-color': ss.show().favorite ? 'red' : '' }">
-        name: {{ ss.show().name ?? 'not found' }}
-        <button (click)="ss.toggleFavorite(ss.show().id)">
-          {{ ss.show().favorite ? 'REMOVE' : 'ADD' }}
-        </button>
-      </li>
-    </ul>
+    @switch (ss.status()) {
+      @case ('loading') {
+        loading...
+      }
+      @case ('success') {
+        <app-show-summary
+          [show]="ss.show()"
+          (toggle)="ss.toggleFavorite($event)"
+        />
+      }
+      @default {
+        no results!
+      }
+    }
   `,
-  styles: ``,
 })
 export class ShowComponent {
   ss = inject(ShowService);

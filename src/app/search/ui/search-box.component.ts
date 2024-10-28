@@ -8,7 +8,6 @@ import {
 
 @Component({
   selector: 'app-search-box',
-  standalone: true,
   imports: [ReactiveFormsModule],
   template: `
     <form
@@ -19,7 +18,6 @@ import {
       <button type="submit" [disabled]="form.invalid">SEARCH</button>
     </form>
   `,
-  styles: ``,
 })
 export class SearchBoxComponent {
   toggle = output<string>();
