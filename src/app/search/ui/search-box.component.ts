@@ -8,6 +8,7 @@ import {
 
 @Component({
   selector: 'app-search-box',
+  standalone: true,
   imports: [ReactiveFormsModule],
   template: `
     <form

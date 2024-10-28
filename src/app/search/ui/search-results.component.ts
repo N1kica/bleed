@@ -4,6 +4,7 @@ import { TVShow } from '../../shared/interfaces/tv-show.model';
 
 @Component({
   selector: 'app-search-results',
+  standalone: true,
   imports: [RouterLink],
   template: `
     <ul>

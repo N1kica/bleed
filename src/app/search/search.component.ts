@@ -5,6 +5,7 @@ import { SearchResultsComponent } from './ui/search-results.component';
 
 @Component({
   selector: 'app-search',
+  standalone: true,
   imports: [SearchBoxComponent, SearchResultsComponent],
   providers: [SearchService],
   template: `

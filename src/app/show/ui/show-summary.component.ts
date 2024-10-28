@@ -3,6 +3,7 @@ import { TVShow } from '../../shared/interfaces/tv-show.model';
 
 @Component({
   selector: 'app-show-summary',
+  standalone: true,
   imports: [],
   template: `
     <ul>

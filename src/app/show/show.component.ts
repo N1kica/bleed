@@ -4,6 +4,7 @@ import { ShowSummaryComponent } from './ui/show-summary.component';
 
 @Component({
   selector: 'app-show',
+  standalone: true,
   imports: [ShowSummaryComponent],
   providers: [ShowService],
   template: `
