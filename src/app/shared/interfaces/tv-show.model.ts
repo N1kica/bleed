@@ -1,13 +1,4 @@
-export interface ShowDetailsState {
-  tvShow: TVShow;
-}
-
-export interface SearchState {
-  page?: number;
-  pages?: number;
-  total?: string;
-  tv_shows?: TVShow[];
-}
+export type Status = 'loading' | 'success' | 'error' | 'no_results';
 
 export interface TVShow {
   id: string;
@@ -40,5 +31,3 @@ export interface Episode {
   name: string;
   air_date: string;
 }
-
-export type Status = 'loading' | 'success' | 'error' | 'no_results';

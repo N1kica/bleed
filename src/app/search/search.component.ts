@@ -11,7 +11,7 @@ import { SearchResultsComponent } from './ui/search-results.component';
   template: `
     <h1>Welcome to Search Page!</h1>
 
-    <app-search-box (toggle)="tvs.search$.next($event)" />
+    <app-search-box (toggle)="tvs.actions.search($event)" />
 
     @switch (tvs.status()) {
       @case ('loading') {
@@ -25,7 +25,7 @@ import { SearchResultsComponent } from './ui/search-results.component';
       @case ('success') {
         <app-search-results
           [shows]="tvs.shows()"
-          (toggle)="tvs.toggleFavorite($event)"
+          (toggle)="tvs.actions.favorite($event)"
         />
       }
 

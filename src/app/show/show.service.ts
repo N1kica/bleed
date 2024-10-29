@@ -1,14 +1,11 @@
-import { Injectable, Signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of, switchMap, tap } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { Injectable, Signal, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import {
-  ShowDetailsState,
-  Status,
-  TVShow,
-} from '../shared/interfaces/tv-show.model';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, catchError, map, of, switchMap, tap } from 'rxjs';
+import { Status, TVShow } from '../shared/interfaces/tv-show.model';
 import { FavoritesService } from '../shared/services/favorites.service';
+import { ShowDetailsState } from './interfaces/show.model';
 
 @Injectable()
 export class ShowService {
@@ -37,13 +34,13 @@ export class ShowService {
 
   // state:
   private url$: Observable<string> = this.route.url.pipe(
-    map((seg) => `https://www.episodate.com/api/show-details?q=${seg[0].path}`),
+    map(seg => `https://www.episodate.com/api/show-details?q=${seg[0].path}`),
   );
 
   private showState: Signal<ShowDetailsState> = toSignal(
     this.url$.pipe(
-      tap((url) => console.log(url)),
-      switchMap((url) => this.http.get<ShowDetailsState>(url)),
+      tap(url => console.log(url)),
+      switchMap(url => this.http.get<ShowDetailsState>(url)),
       catchError(() => of({ tvShow: { id: '-1' } } as ShowDetailsState)),
     ),
     { initialValue: { tvShow: { id: '0' } } },
