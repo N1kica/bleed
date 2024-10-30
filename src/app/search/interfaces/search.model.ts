@@ -1,7 +1,7 @@
 import { TVShow } from '../../shared/interfaces/tv-show.model';
 
 export type SearchEvent = {
-  type: 'SEARCH' | 'NEXT' | 'PREV' | 'RESET';
+  type: 'search' | 'next' | 'prev' | 'reset';
   query?: string;
 };
 
