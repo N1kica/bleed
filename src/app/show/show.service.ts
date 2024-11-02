@@ -13,14 +13,32 @@ export class ShowService {
   private http = inject(HttpClient);
   private favs = inject(FavoritesService);
 
-  // selectors:
+  // Action creators
+  readonly actions = {
+    favorite: (id: string) => this.favs.state$.next(id),
+  } as const;
+
+  // State management using RxJS
+  private state$: Observable<ShowDetailsState> = this.route.url.pipe(
+    map((seg) => `https://www.episodate.com/api/show-details?q=${seg[0].path}`),
+    tap((url) => console.log(url)),
+    switchMap((url) => this.http.get<ShowDetailsState>(url)),
+    catchError(() => of({ tvShow: { id: '-1' } } as ShowDetailsState)),
+  );
+
+  // Private signal selector
+  private readonly state = toSignal(this.state$, {
+    initialValue: { tvShow: { id: '0' } },
+  });
+
+  // Public signals
   show: Signal<TVShow> = computed(() => ({
-    ...this.showState().tvShow,
-    favorite: this.favs.favorites()?.includes(this.showState().tvShow.id),
+    ...this.state().tvShow,
+    favorite: this.favs.favorites()?.includes(this.state().tvShow.id),
   }));
 
   status: Signal<Status> = computed(() => {
-    switch (this.showState().tvShow.id) {
+    switch (this.state().tvShow.id) {
       case undefined:
         return 'no_results';
       case '0':
@@ -31,21 +49,4 @@ export class ShowService {
         return 'success';
     }
   });
-
-  // state:
-  private url$: Observable<string> = this.route.url.pipe(
-    map(seg => `https://www.episodate.com/api/show-details?q=${seg[0].path}`),
-  );
-
-  private showState: Signal<ShowDetailsState> = toSignal(
-    this.url$.pipe(
-      tap(url => console.log(url)),
-      switchMap(url => this.http.get<ShowDetailsState>(url)),
-      catchError(() => of({ tvShow: { id: '-1' } } as ShowDetailsState)),
-    ),
-    { initialValue: { tvShow: { id: '0' } } },
-  );
-
-  // actions:
-  toggleFavorite = (id: string) => this.favs.state$.next(id);
 }

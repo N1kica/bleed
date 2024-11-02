@@ -16,7 +16,7 @@ import { ShowSummaryComponent } from './ui/show-summary.component';
       @case ('success') {
         <app-show-summary
           [show]="ss.show()"
-          (toggle)="ss.toggleFavorite($event)"
+          (toggle)="ss.actions.favorite($event)"
         />
       }
       @default {

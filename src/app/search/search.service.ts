@@ -23,7 +23,7 @@ export class SearchService {
   // Single stream for all search-related events
   private readonly events$ = new Subject<SearchEvent>();
 
-  // Simplified action creators
+  // Action creators
   readonly actions = {
     search: (query: string) => this.events$.next({ type: 'search', query }),
     next: () => this.events$.next({ type: 'next', query: '' }),

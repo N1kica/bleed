@@ -2,7 +2,7 @@ import { TVShow } from '../../shared/interfaces/tv-show.model';
 
 export type SearchEvent = {
   type: 'search' | 'next' | 'prev' | 'reset';
-  query?: string;
+  query: string;
 };
 
 export interface SearchState {
