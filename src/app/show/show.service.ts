@@ -15,7 +15,7 @@ export class ShowService {
 
   // Action creators
   readonly actions = {
-    favorite: (id: string) => this.favs.state$.next(id),
+    favorite: (id: string) => this.favs.update(id),
   } as const;
 
   // State management using RxJS

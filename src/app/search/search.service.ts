@@ -26,10 +26,10 @@ export class SearchService {
   // Action creators
   readonly actions = {
     search: (query: string) => this.events$.next({ type: 'search', query }),
-    next: () => this.events$.next({ type: 'next', query: '' }),
-    prev: () => this.events$.next({ type: 'prev', query: '' }),
-    reset: () => this.events$.next({ type: 'reset', query: '' }),
-    favorite: (id: string) => this.favs.state$.next(id),
+    next: () => this.events$.next({ type: 'next' }),
+    prev: () => this.events$.next({ type: 'prev' }),
+    reset: () => this.events$.next({ type: 'reset' }),
+    favorite: (id: string) => this.favs.update(id),
   } as const;
 
   // State management using RxJS
