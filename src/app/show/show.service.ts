@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, catchError, map, of, switchMap, tap } from 'rxjs';
+import { Observable, catchError, map, of, switchMap } from 'rxjs';
 import { Status, TVShow } from '../shared/interfaces/tv-show.model';
 import { FavoritesService } from '../shared/services/favorites.service';
 import { ShowDetailsState } from './interfaces/show.model';
@@ -21,7 +21,6 @@ export class ShowService {
   // State management using RxJS
   private state$: Observable<ShowDetailsState> = this.route.url.pipe(
     map((seg) => `https://www.episodate.com/api/show-details?q=${seg[0].path}`),
-    tap((url) => console.log(url)),
     switchMap((url) => this.http.get<ShowDetailsState>(url)),
     catchError(() => of({ tvShow: { id: '-1' } } as ShowDetailsState)),
   );

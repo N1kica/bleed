@@ -10,7 +10,6 @@ import {
   of,
   startWith,
   switchMap,
-  tap,
 } from 'rxjs';
 import { Status, TVShow } from '../shared/interfaces/tv-show.model';
 import { FavoritesService } from '../shared/services/favorites.service';
@@ -41,7 +40,6 @@ export class SearchService {
     switchMap((url) =>
       this.http.get<SearchState>(url).pipe(
         startWith({} as SearchState),
-        tap((val) => console.log(val)),
         catchError(() => of({ total: '-1' })),
       ),
     ),
