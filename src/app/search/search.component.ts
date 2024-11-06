@@ -11,7 +11,7 @@ import { SearchResultsComponent } from './ui/search-results.component';
   template: `
     <h1>Welcome to Search Page!</h1>
 
-    <app-search-box (toggle)="tvs.actions.search($event)" />
+    <app-search-box (search)="tvs.actions.search($event)" />
 
     @switch (tvs.status()) {
       @case ('loading') {

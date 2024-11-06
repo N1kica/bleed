@@ -36,10 +36,7 @@ export class SearchService {
   // State management using RxJS
   private state$: Observable<SearchState> = this.events$.pipe(
     startWith({ type: 'search' } as SearchEvent),
-    map(
-      (event) =>
-        `https://www.episodate.com/api/search?${event.query && `q=${event.query}&`}page=1`,
-    ),
+    map((event) => `https://www.episodate.com/api/search?${event.query}page=1`),
     distinctUntilChanged(),
     switchMap((url) =>
       this.http.get<SearchState>(url).pipe(
