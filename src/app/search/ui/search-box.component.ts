@@ -13,7 +13,7 @@ import {
   template: `
     <form
       [formGroup]="form"
-      (ngSubmit)="form.valid && toggle.emit(input.value)"
+      (ngSubmit)="form.valid && toggle.emit('q=' + input.value + '&')"
     >
       <input #input formControlName="search" type="text" />
       <button type="submit" [disabled]="form.invalid">SEARCH</button>

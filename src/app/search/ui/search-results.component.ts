@@ -15,6 +15,8 @@ import { TVShow } from '../../shared/interfaces/tv-show.model';
             {{ show.favorite ? 'REMOVE' : 'ADD' }}
           </button>
         </li>
+      } @empty {
+        No results found!
       }
     </ul>
   `,

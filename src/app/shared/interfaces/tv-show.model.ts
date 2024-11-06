@@ -1,4 +1,4 @@
-export type Status = 'loading' | 'success' | 'error' | 'no_results';
+export type Status = 'loading' | 'success' | 'error' | 'local';
 
 export interface TVShow {
   id: string;

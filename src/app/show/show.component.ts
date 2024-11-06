@@ -1,22 +1,22 @@
 import { Component, inject } from '@angular/core';
-import { ShowService } from './show.service';
 import { ShowSummaryComponent } from './ui/show-summary.component';
+import { ShowStore } from './show.store';
 
 @Component({
   selector: 'app-show',
   standalone: true,
   imports: [ShowSummaryComponent],
-  providers: [ShowService],
+  providers: [ShowStore],
   template: `
     <h1>Welcome to TV Show Page!</h1>
-    @switch (ss.status()) {
+    @switch (store.status()) {
       @case ('loading') {
         loading...
       }
       @case ('success') {
         <app-show-summary
-          [show]="ss.show()"
-          (toggle)="ss.actions.favorite($event)"
+          [show]="store.show()"
+          (toggle)="store.favorite($event)"
         />
       }
       @default {
@@ -26,5 +26,5 @@ import { ShowSummaryComponent } from './ui/show-summary.component';
   `,
 })
 export class ShowComponent {
-  ss = inject(ShowService);
+  store = inject(ShowStore);
 }
