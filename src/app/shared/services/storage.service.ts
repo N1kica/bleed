@@ -4,7 +4,7 @@ import { LOCAL_STORAGE } from '../utils/storage.util';
 @Injectable({
   providedIn: 'root',
 })
-export class StatePersistenceService {
+export class StorageService {
   storage = inject(LOCAL_STORAGE);
 
   load<T>(key: string): T[] {

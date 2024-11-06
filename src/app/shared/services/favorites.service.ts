@@ -7,14 +7,14 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { StatePersistenceService } from './state-persistence.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FavoritesService {
   private readonly KEY = 'favorites';
-  storage = inject(StatePersistenceService);
+  storage = inject(StorageService);
 
   #favorites: WritableSignal<string[]> = signal(this.storage.load(this.KEY));
   favorites: Signal<string[]> = computed(() => this.#favorites());
