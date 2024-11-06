@@ -5,6 +5,7 @@ import {
   Observable,
   Subject,
   catchError,
+  distinctUntilChanged,
   map,
   of,
   startWith,
@@ -39,6 +40,7 @@ export class SearchService {
       (event) =>
         `https://www.episodate.com/api/search?${event.query && `q=${event.query}&`}page=1`,
     ),
+    distinctUntilChanged(),
     switchMap((url) =>
       this.http.get<SearchState>(url).pipe(
         startWith({} as SearchState),
