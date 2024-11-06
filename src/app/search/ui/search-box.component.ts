@@ -13,15 +13,31 @@ import {
   template: `
     <form
       [formGroup]="form"
-      (ngSubmit)="form.valid && toggle.emit('q=' + input.value + '&')"
+      (ngSubmit)="form.valid && search.emit('q=' + searchQuery.value + '&')"
+      aria-labelledby="searchBoxLabel"
     >
-      <input #input formControlName="search" type="text" />
-      <button type="submit" [disabled]="form.invalid">SEARCH</button>
+      <label id="searchBoxLabel" for="searchQuery" class="sr-only">
+        Search
+      </label>
+
+      <input
+        #searchQuery
+        id="searchQuery"
+        formControlName="search"
+        type="text"
+        placeholder="Example"
+        aria-required="true"
+        [attr.aria-invalid]="form.controls['search'].invalid"
+      />
+
+      <button type="submit" [disabled]="form.invalid" aria-label="Search">
+        SEARCH
+      </button>
     </form>
   `,
 })
 export class SearchBoxComponent {
-  toggle = output<string>();
+  search = output<string>();
 
   form = new FormGroup({
     search: new FormControl('', [Validators.required, Validators.minLength(3)]),

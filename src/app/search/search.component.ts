@@ -11,7 +11,7 @@ import { SearchStore } from './search.store';
   template: `
     <h1>Welcome to Search Page!</h1>
 
-    <app-search-box (toggle)="store.search($event)" />
+    <app-search-box (search)="store.search($event)" />
 
     @switch (store.status()) {
       @case ('loading') {
